@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  dao_web3:
+    container_name: gwei-web3-services
+    build: ./GWEI_service/
+    ports:
+      - 5050:5050
+    volumes:
+      - ./data:/var/run/data
+    working_dir: /var/run/gwei

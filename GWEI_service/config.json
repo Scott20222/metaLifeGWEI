@@ -1,0 +1,21 @@
+{
+    "##envirment_setting_part": "can be used without any change",
+
+    "specturm_endpoint": "https://jsonapi1.smartmesh.io",
+    "db_name": "test.db",
+
+
+    "##sensitive_setting_part": "replace the ### part before use",
+
+    "pinata_api_key": "c679b###a65###7###4c",
+    "pinata_api_secret": "efb62a#####601916bac2#####4031a852d####324e278####c754fb7cb97e7",
+    "miner_private_key" : "###################################",
+
+
+    "##variable_setting_part": "replace the ### part before use",
+
+    "miner_address":"0x########################################",
+    "meta_master_address": "0x0dcc00b3f7c664aaa884c87a66f7a0ce80d9367c",
+    "collection_address": "0x########################################",
+
+}
