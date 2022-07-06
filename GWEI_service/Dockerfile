@@ -1,4 +1,4 @@
-FROM python:3.6.4
+FROM python:3
 
 
 RUN apt-get update \
@@ -16,6 +16,6 @@ WORKDIR /var/run/gwei
 
 COPY requirements.txt /var/run/gwei
 
-RUN pip3 install -r /var/run/dao/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
+RUN pip install -r /var/run/gwei/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
 
 CMD ["/bin/bash","/var/run/gwei/run.sh"]
