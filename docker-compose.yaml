@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  dao_web3:
+  gwei:
     container_name: gwei-web3-services
     build: ./GWEI_service/
     ports:

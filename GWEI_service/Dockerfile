@@ -1,8 +1,8 @@
-FROM python:3.6.4
-
+FROM ubuntu:18.04
 
 RUN apt-get update \
-&&apt-get install -y sqlite3
+&&apt-get install -y sqlite3 \
+&&apt-get install -y pip3
 
 RUN mkdir /var/run/gwei
 
@@ -16,6 +16,6 @@ WORKDIR /var/run/gwei
 
 COPY requirements.txt /var/run/gwei
 
-RUN pip install -r /var/run/dao/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
+RUN pip3 install -r /var/run/dao/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
 
 CMD ["/bin/bash","/var/run/gwei/run.sh"]
