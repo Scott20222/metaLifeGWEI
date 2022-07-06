@@ -1,8 +1,8 @@
-FROM ubuntu:18.04
+FROM python:3.6.4
+
 
 RUN apt-get update \
-&&apt-get install -y sqlite3 \
-&&apt-get install -y pip3
+&&apt-get install -y sqlite3
 
 RUN mkdir /var/run/gwei
 
