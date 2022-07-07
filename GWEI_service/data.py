@@ -9,7 +9,7 @@ with open('config.json') as f:
 db = peewee.SqliteDatabase('/var/run/data/' + config['db_name'])
 #db = peewee.SqliteDatabase('test.db')
 
-IMG_FOLDERS = 'imgs'
+IMG_FOLDERS = '/var/run/data/imgs'
 
 class BaseModel(peewee.Model):
     class Meta:

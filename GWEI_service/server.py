@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import uuid, os, hashlib, time
+from utils import img_name_to_folder, img_file_exist
 from data import *
 from web3_support import *
 from data_exporter import export_data, EXPORTS_FOLDER
@@ -12,22 +13,6 @@ CORS(app, resources={r"/*": {"origins": "*"}}, methods=['GET', 'HEAD', 'POST', '
 
 def api_response(data, errorCode = 0):
     return jsonify({'success': errorCode == 0, 'msg': data, 'code': errorCode, 'timestamp': int(time.time())})
-
-def img_name_to_folder(raw_filename, save=False, hashing=True):
-    if hashing:
-        folder = str(int(hashlib.sha1(raw_filename.encode()).hexdigest()[:2],16))
-    else:
-        folder = raw_filename
-    path = os.path.join(IMG_FOLDERS, folder)
-    if save:
-        if not os.path.isdir(IMG_FOLDERS):
-            os.mkdir(IMG_FOLDERS)
-        if not os.path.isdir(path):
-            os.mkdir(path)
-    return path
-
-def img_file_exist(filename):
-    return os.path.isfile(img_name_to_folder(filename, hashing = False))
 
 @app.route('/upload', methods=['POST'])
 def app_upload_file():
@@ -83,7 +68,7 @@ def app_transfer_nft():
         txn = transfer_nft(token_id, to_address)
     except:
         return api_response('error when sending tx', 105)
-    return api_response('success')
+    return api_response(txn)
 
 if __name__ =='__main__':
     app.run(port=5050, debug = True)

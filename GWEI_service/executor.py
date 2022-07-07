@@ -1,11 +1,12 @@
 import time
+from utils import img_name_to_folder
 from data import *
 from web3_support import *
 from pinata_support import *
 
 def execute_ipfs():
     for item in Mints.select().where(Mints.status == 0):
-        ipfs_hash = pinata_push(item.photo, path=IMG_FOLDERS, name = item.name)
+        ipfs_hash = pinata_push(item.photo, path=img_name_to_folder(item.name), name = item.name)
         Mints.update(ipfs_hash=ipfs_hash, status=1).where(Mints.mint_id == item.mint_id).execute()
         time.sleep(0.1)
 
