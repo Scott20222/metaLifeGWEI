@@ -55,9 +55,27 @@ def mint_nft(ipfs_hash, to_address = None):
         'chainId': 20180430,
         'gas': 300000,
         'gasPrice': web3.toWei('20', 'gwei'),
-        'nonce': nonce,
+        'nonce': nonce
         })
     signed_txn = web3.eth.account.sign_transaction(mint_txn, private_key=config['miner_private_key'])
+    _hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+    add_nonce(miner_address)
+    return _hash.hex()
+
+def transfer_nft(token_id, to_address):
+    miner_address = web3.toChecksumAddress(config['miner_address'])
+    nonce = get_nonce(miner_address)
+    txn = meta_master_contract.functions.transfer(
+        collection_address,
+        token_id,
+        web3.toChecksumAddress(to_address),
+        ).buildTransaction({
+        'chainId': 20180430,
+        'gas': 300000,
+        'gasPrice': web3.toWei('20', 'gwei'),
+        'nonce': nonce
+        })
+    signed_txn = web3.eth.account.sign_transaction(txn, private_key=config['miner_private_key'])
     _hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
     add_nonce(miner_address)
     return _hash.hex()

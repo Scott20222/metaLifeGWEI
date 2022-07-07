@@ -62,5 +62,28 @@ def app_export_data():
     filename = export_data()
     return send_from_directory(EXPORTS_FOLDER, filename, as_attachment=False)
 
+@app.route('/count', methods=['GET','POST'])
+def app_count_data():
+    count = Mints.select().count()
+    return api_response(count)
+
+@app.route('/post', methods=['GET','POST'])
+def app_transfer_nft():
+    try:
+        passwd = str(request.json['passwd'])
+        token_id = int(request.json['token_id'])
+        to_address = web3.toChecksumAddress(request.json['to_address'])
+    except KeyError:
+        return api_response('invalid input', 101)
+    except ValueError:
+        return api_response('invalid wallet address', 101)
+    if passwd != 'gwei':
+        return api_response('wrong pass word', 103)
+    try:
+        txn = transfer_nft(token_id, to_address)
+    except:
+        return api_response('error when sending tx', 105)
+    return api_response('success')
+
 if __name__ =='__main__':
     app.run(port=5050, debug = True)
