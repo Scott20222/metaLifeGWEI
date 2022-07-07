@@ -58,9 +58,9 @@ def app_creat_nft():
     return api_response('success')
 
 @app.route('/export', methods=['GET','POST'])
-def app_export_data():
+def app_export_data_func():
     filename = export_data()
-    return send_from_directory(EXPORTS_FOLDER, filename, as_attachment=False)
+    return send_from_directory('/var/run/gwei', filename, as_attachment=True)
 
 @app.route('/count', methods=['GET','POST'])
 def app_count_data():
@@ -77,7 +77,7 @@ def app_transfer_nft():
         return api_response('invalid input', 101)
     except ValueError:
         return api_response('invalid wallet address', 101)
-    if passwd != 'gwei':
+    if passwd != config['transfer_passwd']:
         return api_response('wrong pass word', 103)
     try:
         txn = transfer_nft(token_id, to_address)

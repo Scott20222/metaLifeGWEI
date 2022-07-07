@@ -2,10 +2,8 @@ import xlsxwriter
 from data import *
 import uuid, os
 
-EXPORTS_FOLDER = 'exports'
+EXPORTS_FOLDER = '/var/run/data/exports'
 
-if not os.path.isdir(EXPORTS_FOLDER):
-    os.mkdir(EXPORTS_FOLDER)
 
 def export_data():
     filename = uuid.uuid1().hex + '.xlsx'

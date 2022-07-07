@@ -6,8 +6,8 @@ from eth_abi.abi import decode_abi
 with open('config.json') as f:
     config = json.load(f)
 
-#db = peewee.SqliteDatabase('/var/run/data/' + config['db_name'])
-db = peewee.SqliteDatabase('test.db')
+db = peewee.SqliteDatabase('/var/run/data/' + config['db_name'])
+#db = peewee.SqliteDatabase('test.db')
 
 IMG_FOLDERS = 'imgs'
 

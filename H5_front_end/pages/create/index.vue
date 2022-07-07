@@ -9,7 +9,7 @@
 				<view class="">
 					Upload picture of yo
 				</view>
-				<image class="icon" src="../../static/*.png" mode=""></image>
+				<image class="icon" src="../../static/rename.png" mode=""></image>
 			</view>
 			<u-upload @afterRead="afterRead">
 				<view class="upload-box" :style="`width:${uploadWidth}px`">
@@ -20,14 +20,14 @@
 				<view class="">
 					NAME
 				</view>
-				<image class="icon" src="../../static/*.png" mode=""></image>
+				<image class="icon" src="../../static/rename.png" mode=""></image>
 			</view>
 			<input class="creat-input" placeholder="NAME" type="text" v-model="name" />
 			<view class="title">
 				<view class="">
 					EMAIL
 				</view>
-				<image class="icon" src="../../static/*.png" mode=""></image>
+				<image class="icon" src="../../static/rename.png" mode=""></image>
 			</view>
 			<view class="tip">
 				For us to work with you on sending your NFT to your wallet

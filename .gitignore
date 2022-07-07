@@ -2,3 +2,4 @@
 *.db
 imgs/*
 __pycache__
+gunicorn -w 2 -b 0.0.0.0:5050 server:app --timeout 120 > server.log & python executor.py > run.log
