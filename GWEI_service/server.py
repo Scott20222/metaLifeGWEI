@@ -35,7 +35,7 @@ def app_upload_file():
         return api_response('No file included', 104)
     file = request.files['file']
     filename = uuid.uuid1().hex + '.' + file.filename.rsplit('.', 1)[-1].lower()
-    file.save(img_name_to_folder(filename, True))
+    file.save(os.path.join(img_name_to_folder(filename, True), filename))
     return api_response(filename)
 
 @app.route('/creat', methods=['POST'])
