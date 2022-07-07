@@ -67,7 +67,7 @@ def app_count_data():
     count = Mints.select().count()
     return api_response(count)
 
-@app.route('/post', methods=['GET','POST'])
+@app.route('/transfer', methods=['GET','POST'])
 def app_transfer_nft():
     try:
         passwd = str(request.json['passwd'])
