@@ -9,7 +9,7 @@ from data_exporter import export_data, EXPORTS_FOLDER
 app = Flask(__name__)
 app.secret_key = "yibor!!!"
 
-CORS(app, resources={r"/*": {"origins": "*"}}, methods=['GET', 'HEAD', 'POST', 'OPTIONS'],supports_credentials=True)
+CORS(app)
 
 def api_response(data, errorCode = 0):
     return jsonify({'success': errorCode == 0, 'msg': data, 'code': errorCode, 'timestamp': int(time.time())})
