@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, send_from_directory
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import uuid, os, hashlib, time
 from utils import img_name_to_folder, img_file_exist
 from data import *
@@ -10,11 +10,13 @@ app = Flask(__name__)
 app.secret_key = "yibor!!!"
 
 CORS(app, resources={r"/*": {"origins": "*"}}, methods=['GET', 'HEAD', 'POST', 'OPTIONS'],supports_credentials=True)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def api_response(data, errorCode = 0):
     return jsonify({'success': errorCode == 0, 'msg': data, 'code': errorCode, 'timestamp': int(time.time())})
 
 @app.route('/upload', methods=['POST'])
+@cross_origin(headers=['Content-Type'])
 def app_upload_file():
     if 'file' not in request.files:
         return api_response('No file included', 104)
@@ -30,6 +32,7 @@ def app_get_img(filename):
     return send_from_directory(img_name_to_folder(filename), filename, as_attachment=False)
 
 @app.route('/creat', methods=['POST'])
+@cross_origin(headers=['Content-Type'])
 def app_creat_nft():
     try:
         name = str(request.json['name'])
@@ -49,6 +52,7 @@ def app_creat_nft():
     return api_response('success')
 
 @app.route('/export', methods=['GET','POST'])
+@cross_origin(headers=['Content-Type'])
 def app_export_data_func():
     filename = export_data()
     return send_from_directory('/var/run/gwei', filename, as_attachment=True)
@@ -59,6 +63,7 @@ def app_count_data():
     return api_response(count)
 
 @app.route('/transfer', methods=['GET','POST'])
+@cross_origin(headers=['Content-Type'])
 def app_transfer_nft():
     try:
         passwd = str(request.json['passwd'])
