@@ -23,6 +23,12 @@ def app_upload_file():
     file.save(os.path.join(img_name_to_folder(filename, True), filename))
     return api_response(filename)
 
+@app.route('/img/<filename>', methods = ['GET', 'POST'])
+def app_get_img(filename):
+    if not os.path.isfile(os.path.join(img_name_to_folder(filename), filename)):
+        filename = 'default.jpg'
+    return send_from_directory(img_name_to_folder(filename), filename, as_attachment=False)
+
 @app.route('/creat', methods=['POST'])
 def app_creat_nft():
     try:

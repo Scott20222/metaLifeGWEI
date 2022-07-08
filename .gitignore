@@ -2,5 +2,4 @@
 *.db
 imgs/*
 __pycache__
-*.jpg
 data/
