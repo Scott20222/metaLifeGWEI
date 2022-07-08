@@ -45,7 +45,7 @@ def add_nonce(address):
 def mint_nft(ipfs_hash, to_address = None):
     miner_address = web3.toChecksumAddress(config['miner_address'])
     nonce = get_nonce(miner_address)
-    if to_address is None:
+    if to_address is None or to_address == '':
         to_address = miner_address
     mint_txn = meta_master_contract.functions.mint(
         collection_address,

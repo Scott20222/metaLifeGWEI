@@ -13,10 +13,10 @@ CORS(app, resources={r"/*": {"origins": "*"}}, methods=['GET', 'HEAD', 'POST', '
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 def api_response(data, errorCode = 0):
-    return jsonify({'success': errorCode == 0, 'msg': data, 'code': errorCode, 'timestamp': int(time.time())})
+    response = jsonify({'success': errorCode == 0, 'msg': data, 'code': errorCode, 'timestamp': int(time.time())})
+    return response
 
 @app.route('/upload', methods=['POST'])
-@cross_origin(headers=['Content-Type'])
 def app_upload_file():
     if 'file' not in request.files:
         return api_response('No file included', 104)
@@ -31,8 +31,7 @@ def app_get_img(filename):
         filename = 'default.jpg'
     return send_from_directory(img_name_to_folder(filename), filename, as_attachment=False)
 
-@app.route('/creat', methods=['POST'])
-@cross_origin(headers=['Content-Type'])
+@app.route('/create', methods=['POST'])
 def app_creat_nft():
     try:
         name = str(request.json['name'])
