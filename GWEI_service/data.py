@@ -22,8 +22,9 @@ class Mints(BaseModel):
     email = peewee.CharField()
     address = peewee.CharField(null=True)
     status = peewee.IntegerField(default=0,index=True)
-        #0:created 1:ipfs_done 2:mint_tx_sent 3:minted_to_miner 4:minted_to_client 5:tx_failed
+        #0:created 9:ipfs_img_done 1:ipfs_json_done 2:mint_tx_sent 3:minted_to_miner 4:minted_to_client 5:tx_failed
     photo = peewee.CharField()
+    ipfs_uri = peewee.CharField(null=True)
     ipfs_hash = peewee.CharField(null=True)
     mint_tx = peewee.CharField(null=True)
     update_time = peewee.IntegerField(null=True)

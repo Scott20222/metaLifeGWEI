@@ -7,12 +7,15 @@ from pinata_support import *
 def execute_ipfs():
     for item in Mints.select().where(Mints.status == 0):
         ipfs_hash = pinata_push(item.photo, path=img_name_to_folder(item.name), name = item.name)
-        Mints.update(ipfs_hash=ipfs_hash, status=1).where(Mints.mint_id == item.mint_id).execute()
+        Mints.update(ipfs_hash=ipfs_hash, status=9).where(Mints.mint_id == item.mint_id).execute()
+        filename = pinata_img_hash_to_json(ipfs_hash, path=img_name_to_folder(item.name), name = item.name )
+        ipfs_uri = pinata_push(filename, path=img_name_to_folder(item.name), name = item.name)
+        Mints.update(ipfs_uri=ipfs_uri, status=1).where(Mints.mint_id == item.mint_id).execute()
         time.sleep(0.1)
 
 def execute_mint():
     for item in Mints.select().where(Mints.status == 1):
-        tx_hash = mint_nft(item.ipfs_hash, item.address)
+        tx_hash = mint_nft(item.ipfs_uri, item.address)
         Mints.update(mint_tx=tx_hash, status=2).where(Mints.mint_id == item.mint_id).execute()
         time.sleep(0.1)
 
