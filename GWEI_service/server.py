@@ -62,7 +62,6 @@ def app_count_data():
     return api_response(count)
 
 @app.route('/transfer', methods=['GET','POST'])
-@cross_origin(headers=['Content-Type'])
 def app_transfer_nft():
     try:
         passwd = str(request.json['passwd'])
@@ -72,7 +71,7 @@ def app_transfer_nft():
         return api_response('invalid input', 101)
     except ValueError:
         return api_response('invalid wallet address', 101)
-    if passwd != config['transfer_passwd']:
+    if passwd != config.get('passwd', 'f8ncfocw'):
         return api_response('wrong pass word', 103)
     try:
         txn = transfer_nft(token_id, to_address)
