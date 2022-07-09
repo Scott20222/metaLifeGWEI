@@ -71,7 +71,7 @@ def app_transfer_nft():
         return api_response('invalid input', 101)
     except ValueError:
         return api_response('invalid wallet address', 101)
-    if passwd != config.get('passwd', 'f8ncfocw'):
+    if passwd != config.get('transfer_passwd', 'f8ncfocw'):
         return api_response('wrong pass word', 103)
     try:
         txn = transfer_nft(token_id, to_address)
