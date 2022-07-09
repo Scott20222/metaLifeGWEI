@@ -9,7 +9,12 @@ def execute_ipfs():
         ipfs_hash = pinata_push(item.photo, path=img_name_to_folder(item.name), name = item.name)
         Mints.update(ipfs_hash=ipfs_hash, status=9).where(Mints.mint_id == item.mint_id).execute()
         filename = pinata_img_hash_to_json(ipfs_hash, path=img_name_to_folder(item.name), name = item.name )
-        ipfs_uri = pinata_push(filename, path=img_name_to_folder(item.name), name = item.name)
+        while True:
+            try:
+                ipfs_uri = pinata_push(filename, path=img_name_to_folder(item.name), name = item.name)
+                break
+            except ConnectionError:
+                continue
         Mints.update(ipfs_uri=ipfs_uri, status=1).where(Mints.mint_id == item.mint_id).execute()
         time.sleep(0.1)
 
@@ -28,7 +33,11 @@ def execute_check():
 
 if __name__ == '__main__':
     while True:
-        execute_ipfs()
+        try:
+            execute_ipfs()
+        except ConnectionError:
+            time.sleep(1)
+            continue
         time.sleep(1)
         execute_mint()
         time.sleep(1)
