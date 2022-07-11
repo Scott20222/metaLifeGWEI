@@ -34,12 +34,15 @@ def execute_check():
 if __name__ == '__main__':
     while True:
         try:
-            execute_ipfs()
-        except ConnectionError:
+            try:
+                execute_ipfs()
+            except ConnectionError:
+                time.sleep(1)
+                continue
             time.sleep(1)
+            execute_mint()
+            time.sleep(1)
+            execute_check()
+            time.sleep(1)
+        except:
             continue
-        time.sleep(1)
-        execute_mint()
-        time.sleep(1)
-        execute_check()
-        time.sleep(1)
