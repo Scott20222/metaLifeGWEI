@@ -150,12 +150,7 @@
 					})
 					return
 				}
-				if (timestamp > 1657727999000) {
-					this.$refs.uToast.show({
-						message: 'Disabled after the 13th'
-					})
-					return
-				}
+				
 				const data = {
 					photo: this.photo,
 					name: this.name,
